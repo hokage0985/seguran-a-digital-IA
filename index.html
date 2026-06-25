@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="description"
+    content="Gerador de senhas seguras da Lola com cálculo de entropia."
+  >
+  <meta name="theme-color" content="#52745f">
+  <title>Senhas da Lola</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <div class="paw-background" aria-hidden="true">
+    <span>🐾</span><span>🐾</span><span>🐾</span>
+    <span>🐾</span><span>🐾</span><span>🐾</span>
+  </div>
+
+  <main class="page">
+    <header class="hero">
+      <div class="lola-avatar" aria-hidden="true">
+        <span class="dog-emoji">🐶</span>
+        <span class="avatar-tag">LOLA</span>
+      </div>
+
+      <div>
+        <p class="eyebrow">Segurança aprovada por quatro patinhas</p>
+        <h1>Gerador de Senhas da Lola</h1>
+        <p class="hero-description">
+          Crie senhas fortes, únicas e difíceis de adivinhar — com um toque de fofura.
+        </p>
+      </div>
+    </header>
+
+    <section class="generator-card" aria-labelledby="generator-title">
+      <div class="card-header">
+        <div>
+          <p class="section-kicker">Sua nova senha</p>
+          <h2 id="generator-title">Proteção com patinhas</h2>
+        </div>
+
+        <span class="ready-badge">
+          <span class="ready-dot" aria-hidden="true"></span>
+          Pronto
+        </span>
+      </div>
+
+      <div class="password-wrapper">
+        <label class="sr-only" for="password-output">Senha gerada</label>
+        <input
+          id="password-output"
+          type="text"
+          readonly
+          spellcheck="false"
+          autocomplete="off"
+          aria-describedby="copy-feedback"
+        >
+
+        <button
+          id="copy-button"
+          class="copy-button"
+          type="button"
+          aria-label="Copiar senha"
+          title="Copiar senha"
+        >
+          <span aria-hidden="true">⧉</span>
+          <span class="copy-label">Copiar</span>
+        </button>
+      </div>
+
+      <p id="copy-feedback" class="feedback" aria-live="polite"></p>
+
+      <section class="strength-box" aria-labelledby="strength-title">
+        <div class="strength-top">
+          <div>
+            <span id="strength-title">Força da senha</span>
+            <strong id="strength-text">Aguardando</strong>
+          </div>
+
+          <div class="entropy-value">
+            <span id="entropy-value">0 bits</span>
+            <button
+              class="info-button"
+              type="button"
+              aria-label="Informação sobre entropia"
+              title="Entropia é uma estimativa da quantidade de combinações possíveis da senha."
+            >?</button>
+          </div>
+        </div>
+
+        <div
+          id="strength-track"
+          class="strength-track"
+          role="progressbar"
+          aria-label="Força estimada da senha"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+        >
+          <span id="strength-bar"></span>
+        </div>
+
+        <p id="strength-description">
+          Gere uma senha para ver a avaliação de segurança.
+        </p>
+      </section>
+
+      <form id="password-form" novalidate>
+        <div class="length-section">
+          <div class="control-heading">
+            <label for="length-range">Número de caracteres</label>
+            <input
+              id="length-number"
+              class="length-number"
+              type="number"
+              min="4"
+              max="64"
+              value="16"
+              inputmode="numeric"
+              aria-label="Número de caracteres"
+            >
+          </div>
+
+          <input
+            id="length-range"
+            type="range"
+            min="4"
+            max="64"
+            value="16"
+            aria-label="Ajustar número de caracteres"
+          >
+
+          <div class="range-labels" aria-hidden="true">
+            <span>4</span>
+            <span>64</span>
+          </div>
+        </div>
+
+        <fieldset>
+          <legend>O que a senha deve incluir?</legend>
+
+          <div class="options-grid">
+            <label class="option-card">
+              <input id="uppercase" type="checkbox" checked>
+              <span class="checkmark" aria-hidden="true"></span>
+              <span class="option-text">
+                <strong>Maiúsculas</strong>
+                <small>A–Z</small>
+              </span>
+            </label>
+
+            <label class="option-card">
+              <input id="lowercase" type="checkbox" checked>
+              <span class="checkmark" aria-hidden="true"></span>
+              <span class="option-text">
+                <strong>Minúsculas</strong>
+                <small>a–z</small>
+              </span>
+            </label>
+
+            <label class="option-card">
+              <input id="numbers" type="checkbox" checked>
+              <span class="checkmark" aria-hidden="true"></span>
+              <span class="option-text">
+                <strong>Números</strong>
+                <small>0–9</small>
+              </span>
+            </label>
+
+            <label class="option-card">
+              <input id="symbols" type="checkbox" checked>
+              <span class="checkmark" aria-hidden="true"></span>
+              <span class="option-text">
+                <strong>Símbolos</strong>
+                <small>! @ # $ %</small>
+              </span>
+            </label>
+          </div>
+        </fieldset>
+
+        <label class="switch-row">
+          <input id="avoid-ambiguous" type="checkbox">
+          <span class="switch" aria-hidden="true"></span>
+          <span>
+            <strong>Evitar caracteres parecidos</strong>
+            <small>Remove 0, O, 1, l e I para melhorar a leitura.</small>
+          </span>
+        </label>
+
+        <p id="form-error" class="form-error" role="alert"></p>
+
+        <button class="generate-button" type="submit">
+          <span aria-hidden="true">🐾</span>
+          Gerar senha segura
+        </button>
+      </form>
+
+      <aside class="lola-tip">
+        <span class="tip-icon" aria-hidden="true">🦴</span>
+        <div>
+          <strong>Dica da Lola</strong>
+          <p>
+            Use uma senha diferente em cada conta e guarde tudo em um gerenciador de senhas.
+          </p>
+        </div>
+      </aside>
+    </section>
+
+    <footer>
+      <p>Feito com cuidado, segurança e algumas patinhas.</p>
+      <span aria-hidden="true">🐾</span>
+    </footer>
+  </main>
+</body>
+</html>
